@@ -1,0 +1,57 @@
+<div class="col-md-12">
+    <div class="card card-container" *ngIf="!isSuccessful">
+        <h3 class="text-center">Search Patient Details</h3>
+
+            <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+
+                <div class="form-group">
+                    <label for="name">Patiennt Name</label>
+                    <input type="text" [(ngModel)]="form.name"  name="name" class="form-control">
+                </div>
+
+                <div class="form-group text-center">
+                    <button class="btn btn-primary btn-md">Search</button>
+                </div>
+
+                <div class="alert alert-warning" *ngIf="f.submitted && isSearchFailed">
+                    Failed!<br />{{ errorMessage }}
+                </div>
+            </form>
+
+
+    </div>
+    <div class="card" *ngIf="isSuccessful">
+        <button class="btn btn-primary btn-md" (click)="ngOnInit()">Back</button>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>DOB</th>
+                    <th>Email</th>
+                    <th>Number</th>
+                    <th>Status</th>
+                    <th>DrugId</th>
+                    <th>DrugName</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let patient of patients; index as i">
+                    <td scope="row">{{i+1}}</td>
+                    <td>{{patient.name}}</td>
+                    <td>{{patient.address}}</td>
+                    <td>{{patient.dob}}</td>
+                    <td>{{patient.email}}</td>
+                    <td>{{patient.number}}</td>
+                    <td>{{patient.status}}</td>
+                    <td>{{patient.drugId}}</td>
+                    <td>{{patient.drugName}}</td>
+                    <td>
+                        <button class="btn btn-primary btn-md" [routerLink]="['/remove',patient.id]">Remove</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
